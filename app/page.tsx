@@ -3,6 +3,8 @@ import Logo from '../assets/logo.svg'
 import LandingImg from '../assets/main.svg'
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
+
 export default function Home() {
   return (
     <main>
@@ -25,4 +27,8 @@ export default function Home() {
       </section>
 </main>
   );
+
+
 }
+
+
