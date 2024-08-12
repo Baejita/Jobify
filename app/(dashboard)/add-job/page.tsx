@@ -1,5 +1,7 @@
-function page() {
-  return <div>Add-page</div>;
+import CreateJobForm from "@/components/CreateJobForm";
+
+function AddJobPage() {
+  return <><CreateJobForm/></>;
 }
 
-export default page;
+export default AddJobPage;
