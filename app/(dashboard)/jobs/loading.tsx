@@ -1,8 +1,8 @@
 const loading = () => {
   return (
-    <div>
+    <h2 className="text-xl font-medium capitalize">
       loading...
-    </div>
+    </h2>
   );
 };
 

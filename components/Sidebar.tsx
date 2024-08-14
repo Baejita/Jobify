@@ -1,6 +1,6 @@
 'use client';
 import Logo from '@/assets/logo.svg';
-import links from '@/app/utils/links';
+import links from '@/utils/links';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from './ui/button';

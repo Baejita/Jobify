@@ -8,7 +8,7 @@ import {
   JobMode,
   createAndEditJobSchema,
   CreateAndEditJobType,
-} from '@/app/utils/types';
+} from '@/utils/types';
 
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
@@ -16,7 +16,7 @@ import { Form } from '@/components/ui/form';
 import { CustomformField, CustomformSelect } from './FormComponents';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createJobAction } from '@/app/utils/actions';
+import { createJobAction } from '@/utils/actions';
 import { useToast } from '@/components/ui/use-toast';
 import { useRouter } from 'next/navigation';
 

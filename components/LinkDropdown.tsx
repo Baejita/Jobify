@@ -9,7 +9,7 @@ import {
 import { Button } from "./ui/button"
 import { AlignLeft } from "lucide-react"
 import Link from "next/link"
-import links from "@/app/utils/links"
+import links from "@/utils/links"
 
 const LinkDropDrown = () => {
   return (
