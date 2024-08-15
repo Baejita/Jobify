@@ -1,10 +1,12 @@
+import { getStatsAction } from "@/utils/actions"
 
-function page() {
+function StatsPage() {
+  getStatsAction()
   return (
     <div>
-      stats page
+      stats StatsPage
     </div>
   )
 }
 
-export default page
+export default StatsPage

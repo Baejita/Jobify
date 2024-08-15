@@ -5,6 +5,7 @@ import { auth } from '@clerk/nextjs';
 import { JobType, CreateAndEditJobType, createAndEditJobSchema, JobStatus } from './types';
 import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';
+import { statfsSync } from 'fs';
 
 function authenticateAndRedirect(): string {
   const { userId } = auth();
@@ -154,5 +155,30 @@ export async function updateJobAction(
     return job;
   } catch (error) {
     return null;
+  }
+}
+
+export async function getStatsAction(): Promise<{
+  pending: number;
+  interview: number;
+  declined: number;
+}> {
+  const userId = authenticateAndRedirect();
+  // just to show Skeleton
+  // await new Promise((resolve) => setTimeout(resolve, 5000));
+  try {
+    const stats = await prisma.job.groupBy({
+      by: ['status'],
+      _count: {
+        status: true,
+      },
+      where: {
+        clerkId: userId, // replace userId with the actual clerkId
+      },
+    });
+    
+   console.log(stats)
+  } catch (error) {
+    redirect('/jobs');
   }
 }
