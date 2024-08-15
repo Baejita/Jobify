@@ -3,6 +3,7 @@ import { getAllJobsAction } from "@/utils/actions";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import JobCard from "./JobCard";
+import ButtonContainer from "./ButtonContainer";
 
 const JobList = () => {
   const searchParams = useSearchParams();
@@ -18,12 +19,28 @@ const JobList = () => {
   })
 
   const jobs = data?.jobs || [];
+
+  const count = data?.count || 0;
+  const page = data?.page || 0;
+    const totalPages = data?.totalPages || 0;
+
+
+
   if (isPending) return <h2 className="text-xl">Please wait...</h2>
   if(jobs.length <1) return <h2 className="text-xl"> No job found...</h2>
 
+  
+  
   return (
     <>
-    {/* button container */}
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl font-semibold capitalize">{count} jobs found</h2>
+
+        {
+          totalPages < 2 ? null : <ButtonContainer currentPage={page} totalPages={totalPages} />
+}
+
+      </div>
       <div className="grid grid-cols-2 gap-8">
         {jobs.map(job => {
           return <JobCard key={job.id} job={job} />

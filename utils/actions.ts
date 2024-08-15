@@ -6,6 +6,7 @@ import { JobType, CreateAndEditJobType, createAndEditJobSchema, JobStatus } from
 import { redirect } from 'next/navigation';
 import { Prisma } from '@prisma/client';
 import dayjs from 'dayjs';
+import { set } from 'zod';
 
 function authenticateAndRedirect(): string {
   const { userId } = auth();
@@ -83,15 +84,25 @@ export async function getAllJobsAction({
         status: jobStatus,
       };
     }
-
+    const skip = (page - 1) * limit;
+    // page 1 ดังนั้น เราไม่ skip ( = 0)
     const jobs: JobType[] = await prisma.job.findMany({
       where: whereClause,
+      skip,
+      take: limit,
       orderBy: {
         createdAt: 'desc',
       },
     });
 
-    return { jobs, count: 0, page: 1, totalPages: 0 };
+    const count: number = await prisma.job.count({
+      where: whereClause,
+      
+    })
+    const totalPages = Math.ceil(count / limit);
+   
+
+    return { jobs, count, page, totalPages };
   } catch (error) {
     console.error(error);
     return { jobs: [], count: 0, page: 1, totalPages: 0 };
@@ -162,6 +173,8 @@ export async function getStatsAction(): Promise<{
   interview: number;
   declined: number;
 }> {
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+
   const userId = authenticateAndRedirect();
   // just to show Skeleton
   // await new Promise((resolve) => setTimeout(resolve, 5000));
